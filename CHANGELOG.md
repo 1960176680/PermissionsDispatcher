@@ -1,5 +1,47 @@
 # ChangeLog
 
+- 4.7.0 2020/03/25
+  - Feat: [ktx module](https://github.com/permissions-dispatcher/PermissionsDispatcher/pull/665)
+  - Update: [Add missing dangerous permissions check in later versions](https://github.com/permissions-dispatcher/PermissionsDispatcher/pull/652)
+  - Update: [Use the constant from `PermissionChecker`](https://github.com/permissions-dispatcher/PermissionsDispatcher/pull/658)
+- 4.6.0 2019/10/30
+  - Fix: lint CallNeedsPermission on same named function [#602](https://github.com/permissions-dispatcher/PermissionsDispatcher/issues/602)
+  - Fix: Remove Conductor support [#644](https://github.com/permissions-dispatcher/PermissionsDispatcher/pull/644) 
+  [#620](https://github.com/permissions-dispatcher/PermissionsDispatcher/issues/620)
+  - Fix: Java to Kotlin collections mapping [#643](https://github.com/permissions-dispatcher/PermissionsDispatcher/pull/643)
+- 4.5.0 2019/07/01
+  - Improve: Incremental annotation processing for Kotlin [#626](https://github.com/permissions-dispatcher/PermissionsDispatcher/pull/626)
+  - Fix: lint CallNeedsPermission on same named function [#602](https://github.com/permissions-dispatcher/PermissionsDispatcher/issues/602)
+  - Fix: java-kotlin conversion issue [#603](https://github.com/permissions-dispatcher/PermissionsDispatcher/issues/603) [#620](https://github.com/permissions-dispatcher/PermissionsDispatcher/issues/620)
+  - Fix: Remove redundant BuildConfig file [#607](https://github.com/permissions-dispatcher/PermissionsDispatcher/pull/607)
+- 4.3.1 2019/04/08
+  - Add: Add support for internal classes [#574](https://github.com/permissions-dispatcher/PermissionsDispatcher/pull/606)
+- 4.3.0 2018/12/31
+  - Add: Conductor support [#574](https://github.com/permissions-dispatcher/PermissionsDispatcher/pull/574)
+- 4.2.0 2018/12/21
+  - Add: OnShowRationale API change with keeping backward compatibility [#569](https://github.com/permissions-dispatcher/PermissionsDispatcher/pull/569)
+  - Update: Change maven groupId from `com.github.hotchemi` to `org.permissionsdispatcher` [#560](https://github.com/permissions-dispatcher/PermissionsDispatcher/issues/560)
+  - Doc: Publish document site! https://permissions-dispatcher.github.io
+  - Fix: Any is translated to java.lang.Object [#545](https://github.com/permissions-dispatcher/PermissionsDispatcher/issues/545)
+  - Add: Support Java incremental compilation [#473](https://github.com/permissions-dispatcher/PermissionsDispatcher/issues/473)
+  - Update: Drop Xiaomi support [#548](https://github.com/permissions-dispatcher/PermissionsDispatcher/pull/548)
+- 4.1.0 2018/12/07
+  - Fix: compile time validation for detecting OnNeverAskAgain with special permissions [#549](https://github.com/permissions-dispatcher/PermissionsDispatcher/pull/549)
+  - Fix: Fix CallNeedsPermissionDetector to scan only annotated classes [#536](https://github.com/permissions-dispatcher/PermissionsDispatcher/pull/536)
+- 4.0.0 2018/10/20
+  - Update: [Update androidx ver to 1.0.0](https://github.com/permissions-dispatcher/PermissionsDispatcher/pull/530)
+  - Fix: [Add NonNull annotation and use requireActivity](https://github.com/permissions-dispatcher/PermissionsDispatcher/pull/526)
+  - Fix: [workaround to convert java String to kotlin String in argument parameter](https://github.com/permissions-dispatcher/PermissionsDispatcher/pull/509)
+- 4.0.0-alpha1 2018/07/12
+  - Remove: Remove native Fragment support[#498](https://github.com/permissions-dispatcher/PermissionsDispatcher/pull/498)
+  - Add: Jetpack support [#494](https://github.com/permissions-dispatcher/PermissionsDispatcher/pull/494)
+- 3.3.2 2018/12/07
+  - Update: Drop Xiaomi support [#548](https://github.com/permissions-dispatcher/PermissionsDispatcher/pull/548)
+- 3.3.1 2018/06/25
+  - Internal: Update using Kotlin ver to 1.2.50 [#489](https://github.com/permissions-dispatcher/PermissionsDispatcher/pull/489)
+  - Add: Add a lint rule for not call WithPermissionCheck inside onResume [#486](https://github.com/permissions-dispatcher/PermissionsDispatcher/pull/486)
+  - Fix: Fix compile error when request SYSTEM_ALERT_WINDOW on SupportFragment [#482](https://github.com/permissions-dispatcher/PermissionsDispatcher/pull/482)
+  - Fix: Fix the problem with order matter "Useless @OnShowRationale declaration [#479](https://github.com/permissions-dispatcher/PermissionsDispatcher/pull/479)
 - 3.2.0 2018/04/17
   - Update: Address lint for Kotlin project [#460](https://github.com/permissions-dispatcher/PermissionsDispatcher/pull/460)
   - Add: Add JvmName annotation to generated file [#458](https://github.com/permissions-dispatcher/PermissionsDispatcher/pull/458)

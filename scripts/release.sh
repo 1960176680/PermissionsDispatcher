@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
 
-./gradlew clean build generatePomFileForMavenPublication :processor:bintrayUpload -PbintrayUser=$bintrayUser -PbintrayKey=$bintrayKey -PdryRun=false
-./gradlew :library:bintrayUpload -PbintrayUser=$bintrayUser -PbintrayKey=$bintrayKey -PdryRun=false
+./gradlew clean build
+./gradlew :processor:bintrayUpload
+./gradlew :library:bintrayUpload
+./gradlew :annotation:bintrayUpload
+./gradlew :ktx:bintrayUpload

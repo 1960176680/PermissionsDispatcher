@@ -1,9 +1,12 @@
+group = GROUP_ID
+version = VERSION
+
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
 
 android {
     compileSdkVersion COMPILE_SDK_VERSION
-    buildToolsVersion BUILD_TOOLS_VERSION
     defaultConfig {
         minSdkVersion MIN_SDK_VERSION
         targetSdkVersion TARGET_SDK_VERSION
@@ -18,15 +21,8 @@ android {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
 
-    sourceSets {
-        main {
-            java {
-                srcDirs = [
-                        'src/main/java',
-                        'src/main/android'
-                ]
-            }
-        }
+    libraryVariants.all {
+        it.generateBuildConfigProvider.configure { enabled = false }
     }
 }
 
@@ -35,25 +31,67 @@ configurations {
 }
 
 dependencies {
-    implementation "com.android.support:support-compat:$SUPPORT_LIBRARY_VERSION"
-    implementation "com.android.support:support-v13:$SUPPORT_LIBRARY_VERSION"
+    implementation "androidx.core:core:$ANDROIDX_LIBRARY_VERSION"
+    implementation "androidx.fragment:fragment:$ANDROIDX_LIBRARY_VERSION"
+    implementation "androidx.collection:collection:$ANDROIDX_LIBRARY_VERSION"
 
     testImplementation "junit:junit:$JUNIT_VERSION"
     testImplementation "org.mockito:mockito-core:$MOCKITO_VERSION"
-    testImplementation "org.powermock:powermock-api-mockito:$POWERMOCK_VERSION"
+    testImplementation "org.powermock:powermock-api-mockito2:$POWERMOCK_VERSION"
     testImplementation "org.powermock:powermock-module-junit4:$POWERMOCK_VERSION"
 
+    api project(path: ':annotation')
     lintChecks project(path: ':lint', configuration: 'lintChecks')
 }
 
-publish {
-    userOrg = USER
-    groupId = GROUP_ID
-    artifactId = ARTIFACT_ID_LIBRARY
-    version = VERSION
-    desc = DESCRIPTION
-    website = WEBSITE
-    licences = LICENCES
+bintray {
+    publications = ['MyPublication']
+    user = bintrayUser
+    key = bintrayKey
+    dryRun = dryRun
+    publish = true
+
+    pkg {
+        repo = REPO
+        userOrg = USER
+        name = ARTIFACT_ID_LIBRARY
+        vcsUrl = VCS_URL
+        licenses = LICENSES
+        websiteUrl = WEBSITE
+        version {
+            name = VERSION
+            desc = DESCRIPTION
+        }
+    }
+}
+
+publishing {
+    publications {
+        MyPublication(MavenPublication) {
+            artifact sourcesJar
+            artifact javadocJar
+            artifact "$buildDir/outputs/aar/library-release.aar"
+            groupId GROUP_ID
+            artifactId ARTIFACT_ID_LIBRARY
+            version VERSION
+
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode('dependencies')
+                // Iterate over the compile dependencies, adding a <dependency> node for each
+                configurations.implementation.allDependencies.each {
+                    if (it.group != null && it.name != null && it.version != null) {
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', it.group)
+                        // to change annotation module artifactId explicitly
+                        // ref: https://github.com/dcendents/android-maven-gradle-plugin/issues/9#issuecomment-73550293
+                        def artifactId = (it.group == GROUP_ID && it.name == "annotation") ? ARTIFACT_ID_ANNOTATION : it.name
+                        dependencyNode.appendNode('artifactId', artifactId)
+                        dependencyNode.appendNode('version', it.version)
+                    }
+                }
+            }
+        }
+    }
 }
 
 task sourcesJar(type: Jar) {
